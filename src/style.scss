@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css?family=Chela+One|Merienda");
+body {
+  background: url("http://www.dreams.metroeve.com/wp-content/uploads/2017/09/www.dreams.metroeve.com-musical-notes-dreams-meaning-1024x564.jpg");
+  background-size: 20vw 20vw;
+  text-align: center;
+  font-family: "Merienda", "Chela One", cursive;
+}
+@mixin grid($gapY,$gapX,$cols,$rows,$prefix:1) {
+  display: grid;
+  grid-template-columns: $cols;
+  grid-template-rows: $rows;
+  grid-gap: $gapY $gapX;
+  @if ($prefix==1) {
+    display: -ms-grid;
+    -ms-grid-columns: $cols;
+    -ms-grid-rows: $rows;
+  }
+}
+@mixin flex($direction) {
+  display: -ms-flexbox;
+  -ms-flex-direction: $direction;
+  -ms-flex-wrap: wrap;
+  -ms-flex-pack: justify;
+}
+@mixin grid-item($col1,$col2,$row1,$row2) {
+  grid-column: $col1 (/$col2);
+  grid-row: $row1 (/$row2);
+  -ms-grid-column: $col1;
+  -ms-grid-column-span: $col2 - $col1;
+  -ms-grid-row: $row1;
+  -ms-grid-row-span: $row2 -$row1;
+}
+@mixin border($col,$back,$border,$rad,$shadow:0) {
+  color: $col;
+  background: $back;
+  @if ($shadow!=0) {
+    box-shadow: 2px 2px $shadow black;
+  }
+  border: $border;
+  border-radius: $rad;
+}
+#drum-machine {
+  @include border(#1b5e20,#ffff00,green double 3px,20px,3px 5px);
+  width: 56vw;
+  margin: 20px auto;
+  padding: 0 0 20px 4vw;
+  @include grid(15px,2vw,25vw 25vw,100px 25vw);
+}
+h1 {
+  padding: 5px;
+  @include border(yellow,lime,dashed 3px green,20px);
+  @include grid-item(1,3,1,2);
+  position: relative;
+}
+@mixin befAft($back,$size,$width,$height) {
+  background: url($back) no-repeat;
+  background-size: $size;
+  display: inline-block;
+  content: "";
+  width: $width;
+  height: $height;
+  border-radius: 20%;
+  margin: 0 10px;
+}
+@media (min-width: 500px) {
+  .drum-kit {
+    &::before,
+    &::after {
+      @include befAft("http://journal-shkolniku.ru/img5/music1.jpg",50px 20px,50px,20px);
+    }
+  }
+  .piano-kit {
+    &::before,
+    &::after {
+      @include befAft("https://png.pngtree.com/element_origin_min_pic/16/10/24/62d5ade06c1a23afd43bf8c75d0600f1.jpg",30px 30px,24px,30px);
+      background-position: right center;
+    }
+  }
+}
+
+.drum {
+  @include grid(10px,10px, 1fr 1fr 1fr,1fr 1fr 1fr,0);
+  @include grid-item(1,2,2,3);
+  @include flex(row);
+}
+.drum-pad {
+  cursor: pointer;
+  font: 1.2em "Chela One", cursive;
+  transition: 0.5s;
+  @include border(#1b5e20,#c6ff00,#1b5e20 solid thin,15%,3px 2px);
+  outline: none;
+}
+.drum-pad:focus,
+.drum-pad:active {
+  outline: none;
+}
+#display {
+  display: flex;
+  flex-direction: column;
+  @include grid-item(2,3,2,3);
+  @include flex(column);
+}
+.checkbox-hide {
+  display: none;
+}
+@mixin checkbox($display,$width,$height) {
+  display: $display;
+  border-radius: 5px;
+  width: $width;
+  height: $height;
+  box-shadow: 2px 2px 5px 2px black;
+}
+.checkbox {
+  cursor: pointer;
+  margin-bottom: -5px;
+  @include checkbox(inline-block,45px,20px);
+  background: linear-gradient(to left, grey, grey, white) repeat-x;
+  background-size: 5px 20px;
+  &::before {
+    transition: 1s;
+    @include checkbox(block,22px,20px);
+    content: "";
+    background: green;
+  }
+}
+input:checked + .checkbox {
+  &::before {
+    transform: translateX(23px);
+    background: red;
+  }
+}
+.range {
+  cursor: pointer;
+  outline: none;
+  display: block;
+  width: 70%;
+  margin: 15px auto;
+  -webkit-appearance: none;
+  padding: 0;
+}
+@mixin range($back,$rad,$height,$width:0) {
+  @if ($width!=0) {
+    width: $width;
+  }
+  height: $height;
+  background: $back;
+  border: green thin solid;
+  border-radius: $rad;
+}
+.range::-webkit-slider-runnable-track {
+  @include range(#c6ff00,20px,10px);
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  @include range(lime,50%,20px,20px);
+  margin-top: -5px;
+}
+.range::-moz-range-track {
+  @include range(#c6ff00,20px,10px);
+  outline: none;
+}
+.range::-moz-range-thumb {
+  @include range(lime,50%,20px,20px);
+}
+.range::-ms-track {
+  @include range(#c6ff00,20px,10px);
+  outline: none;
+}
+.range::-ms-thumb {
+  @include range(lime,50%,20px,20px);
+}
+label:nth-child(2n) {
+  line-height: 6vw;
+}
+@mixin display($back,$bCol,$col:1) {
+  @if ($col!=0) {
+    line-height: 6vw;
+    border-radius: 20px;
+    color: #1b5e20;
+    min-height: 20%;
+    margin-bottom: 0;
+  }
+  background: $back;
+  border: $bCol thin solid;
+}
+.empty {
+  @include display(lime,green);
+}
+.full {
+  @include display(#c6ff00,#1b5e20);
+}
+.clicked {
+  @include display(cyan,blue,0);
+  box-shadow: none;
+}
+@media (max-width: 750px) {
+  body {
+    font-size: 0.9em;
+  }
+  @media (min-width: 500px) {
+    #drum-machine {
+      width: 88vw;
+      padding-left: 5vw;
+      @include grid(15px,3vw,41vw 41vw,100px 41vw);
+    }
+    label:nth-child(2n),
+    .full,
+    .empty {
+      line-height: 10vw;
+    }
+  }
+}
+@media (max-width: 500px) {
+  #drum-machine {
+    width: 88vw;
+    padding-left: 5vw;
+    @include grid(15px,3vw,41vw 41vw, 80px 41vw 10vw);
+  }
+  h1 {
+    font-size: 1.4em;
+    line-height: 40px;
+  }
+  label:nth-child(2n),
+  .full,
+  .empty {
+    line-height: 10vw;
+    min-height: 20%;
+  }
+  .drum {
+    @include grid-item(1,2,2,3);
+  }
+  #display {
+    @include grid-item(2,3,2,4);
+  }
+}
