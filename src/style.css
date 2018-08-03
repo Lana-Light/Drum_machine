@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Chela+One|Merienda");
 body {
-  background: url("http://www.dreams.metroeve.com/wp-content/uploads/2017/09/www.dreams.metroeve.com-musical-notes-dreams-meaning-1024x564.jpg");
+  background: url("http://cliparts.co/cliparts/riL/xdB/riLxdB7gT.jpg");
   background-size: 20vw 20vw;
   text-align: center;
   font-family: "Merienda", "Chela One", cursive;
@@ -89,9 +89,11 @@ h1 {
   box-shadow: 2px 2px 3px 2px black;
   border: #1b5e20 solid thin;
   border-radius: 15%;
-  outline: none;
 }
 
+.drum-pad::-moz-focus-inner {
+  border: 0;
+}
 .drum-pad:focus,
 .drum-pad:active {
   outline: none;
